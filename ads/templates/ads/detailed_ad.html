@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}{{ ad.title }}{% endblock %}
+
+{% block content %}
+    <a href="{% url "ads:all_ads" %}">Вернуться назад</a>
+    <h1>{{ ad.title }}</h1>
+    <p>{{ ad.ad_type }}</p>
+    <p>{{ ad.text }}</p>
+    <p>Published: {{ ad.publish }} by {{ ad.author }}</p>
+{% endblock %}
