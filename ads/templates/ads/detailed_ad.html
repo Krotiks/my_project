@@ -8,4 +8,5 @@
     <p>{{ ad.ad_type }}</p>
     <p>{{ ad.text }}</p>
     <p>Published: {{ ad.publish }} by {{ ad.author }}</p>
+    <a href="{% url "ads:share_ad" ad.id %}">Share</a>
 {% endblock %}
