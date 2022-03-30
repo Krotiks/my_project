@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.core.mail import send_mail
+from django.contrib.auth.models import User
 from . import models
 from . import forms
 
@@ -43,3 +44,20 @@ def share_ad(request, ad_id):
     return render(request,
                   'ads/share.html',
                   {'ad': ad, 'form' : form})
+
+
+def create_ad(request):
+    if request.method == 'POST':
+        ad_form = forms.AdForm(request.POST)
+        if ad_form.is_valid():
+            new_ad = ad_form.save(commit=False)
+            new_ad.author = User.objects.first()
+            new_ad.slug = new_ad.title.replace(' ', '_')
+            new_ad.save()
+            return render(request, "ads/detailed_ad.html",
+                          {"ad": new_ad})
+    else:
+        ad_form = forms.AdForm()
+    return render(request,
+                  'ads/create.html',
+                  {'form': ad_form})
