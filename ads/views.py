@@ -4,17 +4,23 @@ from django.core.mail import send_mail
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
+from django.views.generic import ListView
 from . import models
 from . import forms
 
 # Create your views here.
+class AdListView(LoginRequiredMixin, ListView):
+    queryset = models.Ad.objects.all()
+    context_object_name = 'ads'
+    template_name = "ads/all_ads.html"
 
 
-def all_ads(request):
-    ads = models.Ad.objects.all()
-    return render(request, "ads/all_ads.html",
-                  {"ads": ads})
+#def all_ads(request):
+#    ads = models.Ad.objects.all()
+#    return render(request, "ads/all_ads.html",
+#                 {"ads": ads})
 
 
 @login_required
@@ -85,6 +91,6 @@ def custom_login(request):
                 return HttpResponse('user not found')
     else:
         form = forms.LoginForm()
-    return render(request,
+        return render(request,
                   'login.html',
                   {'form': form})
