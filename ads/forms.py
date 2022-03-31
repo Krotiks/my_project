@@ -12,3 +12,8 @@ class AdForm(forms.ModelForm):
     class Meta:
         model = models.Ad
         fields = ('title', 'text', 'ad_types')
+
+
+class LoginForm(forms.Form):
+    username = forms.CharField()
+    password = forms.CharField(widget=forms.PasswordInput)

@@ -9,4 +9,5 @@ urlpatterns = [
     path('<int:ad_id>/share/',
          views.share_ad, name='share_ad'),
     path('create/', views.create_ad, name='create_form'),
+    path('login/', views.custom_login, name='login'),
 ]

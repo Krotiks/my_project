@@ -2,6 +2,9 @@ from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.core.mail import send_mail
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 from . import models
 from . import forms
 
@@ -14,6 +17,7 @@ def all_ads(request):
                   {"ads": ads})
 
 
+@login_required
 def detailed_ad(request, yy, mm, dd, slug):
     ad = get_object_or_404(models.Ad,
                            publish__year=yy,
@@ -61,3 +65,26 @@ def create_ad(request):
     return render(request,
                   'ads/create.html',
                   {'form': ad_form})
+
+
+def custom_login(request):
+    if request.method == 'POST':
+        form = forms.LoginForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            user = authenticate(username=cd['username'],
+                                password=cd['password'],
+                                )
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    return HttpResponse('user was logged in')
+                else:
+                    return HttpResponse('user is not active')
+            else:
+                return HttpResponse('user not found')
+    else:
+        form = forms.LoginForm()
+    return render(request,
+                  'login.html',
+                  {'form': form})
