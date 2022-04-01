@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+    <a href="{% url "post:all_posts" %}">Back to posts</a>
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.note }}</p>
+    <p>Posts:</p>
+    {% for post in post.ads.all %}
+        <p>{{ ad.title }}</p>
+        <p>Author: {{ ad.author }}
+        <a href="{{ad.get_absolute_url}}">Link to the ad</a> <br>
+    {% endfor %}
+{% endblock %}

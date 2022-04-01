@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}
+    All posts
+{% endblock %}
+
+{% block content %}
+    <h1>All posts:</h1>
+    {% for post in posts %}
+        <h3>{{ post.title }}</h3>
+        <p>
+            {{ post.note|truncatewords:5 }}
+        </p>
+        <a href="{{post.get_absolute_url}}">Link to the post</a> <br>
+    {% endfor %}
+{% endblock %}

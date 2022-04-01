@@ -57,3 +57,19 @@ class Profile(models.Model):
     birth = models.DateTimeField(null=True, blank=True)
     photo = models.ImageField(upload_to="user/%Y/%m/%d/", blank=True)
 
+
+class Post(models.Model):
+    title = models.CharField(max_length=250)
+    slug = models.SlugField(max_length=255)
+    note = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    ads = models.ManyToManyField(Ad, related_name='posts')
+
+
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return reverse('post:detailed_post',
+                       args=[self.slug])

@@ -159,3 +159,15 @@ def edit_profile(request):
         return render(request,
                       'edit_profile.html',
                       {'user_form': user_form, 'profile_form': profile_form})
+
+
+def all_posts(request):
+    posts = models.Post.objects.all()
+    return render(request, "ads/all_posts.html",
+                  {"posts": posts})
+
+
+@login_required
+def detailed_post(request, slug):
+    post = get_object_or_404(models.Post, slug=slug)
+    return render(request, "ads/detailed_post.html", {"post": post})
