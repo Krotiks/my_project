@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.views.generic import ListView
+from django.shortcuts import redirect
 from . import models
 from . import forms
 
@@ -30,8 +31,21 @@ def detailed_ad(request, yy, mm, dd, slug):
                            publish__month=mm,
                            publish__day=dd,
                            slug=slug)
+    ads = models.Ad.objects.all()
+    if request.method == "POST":
+        comment_form = forms.CommentForm(request.POST)
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.ad = ad
+            new_comment.save()
+            return redirect(ad)
+    else:
+        comment_form = forms.CommentForm()
+
     return render(request, "ads/detailed_ad.html",
-                  {"ad": ad})
+                  {"ad": ad,
+                   "form": comment_form,
+                   "ads": ads})
 
 
 def share_ad(request, ad_id):

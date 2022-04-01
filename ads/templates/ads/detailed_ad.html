@@ -9,4 +9,27 @@
     <p>{{ ad.text }}</p>
     <p>Published: {{ ad.publish }} by {{ ad.author }}</p>
     <a href="{% url "ads:share_ad" ad.id %}">Share</a>
+
+    {# comments for ad #}
+    {% if commented %}
+        You've left a comment
+    {% else %}
+        <form action="." method="post">
+            {{ form.as_p }}
+            {% csrf_token %}
+        <input type="submit" value="Add comment">
+    {% endif %}
+    </form>
+        <br>
+        {% with ad.comments.count as total_comments %}
+            {{ total_comments }} comment{{ total_comments|pluralize }}
+        {% endwith %}
+<br>
+        {% for comment in ad.comments.all %}
+            <p> Comment #{{ forloop.counter }} by {{ comment.name}}</p>
+            {{ comment.body }}
+        {% empty %}
+            No comments yet. You can be the first one.
+        {% endfor %}
+
 {% endblock %}
