@@ -109,3 +109,7 @@ def custom_login(request):
         return render(request,
                   'login.html',
                   {'form': form})
+
+
+def view_profile(request):
+    return render(request, 'profile.html')

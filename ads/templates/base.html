@@ -8,7 +8,7 @@
 </head>
 <body>
     {% if request.user.is_authenticated %}
-        Hi {{ request.user.first_name }}     <a href="{% url "ads:logout" %}">Logout</a>
+        Hi {{ request.user.first_name }}     <a href="{% url "ads:logout" %}">Logout</a> <a href="{% url "ads:profile" %}">Profile</a>
     {% else %}
             <a href="{% url "ads:login" %}">Login</a>
     {% endif %}

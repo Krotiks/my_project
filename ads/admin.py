@@ -5,6 +5,7 @@ from . import models
 # admin.site.register(models.Ad)
 
 admin.site.register(models.Comment)
+admin.site.register(models.Profile)
 
 @admin.register(models.Ad)
 class AdAdmin(admin.ModelAdmin):

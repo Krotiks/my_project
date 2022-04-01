@@ -17,7 +17,7 @@ urlpatterns = [
     path('<int:yy>/<int:mm>/<int:dd>/<slug:slug>/',
          views.detailed_ad, name='detailed_ad'),
     path('<int:ad_id>/share/',
-         views.share_ad, name='share_ad'),
+        views.share_ad, name='share_ad'),
     path('create/', views.create_ad, name='create_form'),
     #path('login/', views.custom_login, name='login'),
     path('login/', auth_views.LoginView.as_view(), name='login'),
@@ -40,4 +40,5 @@ urlpatterns = [
         auth_views.PasswordResetCompleteView.as_view(),
         name="password_reset_complete",
     ),
+    path('profile/', views.view_profile, name='profile'),
 ]

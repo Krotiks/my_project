@@ -9,8 +9,9 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+import os.path
 from pathlib import Path
+from django.utils.translation import LANGUAGE_SESSION_KEY
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -127,3 +128,21 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = '/ads/login/'
 LOGIN_REDIRECT_URL = '/ads/'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, '/media/')
+
+LANGUAGE_CODE = 'ru'  # язык сайта по умолчанию
+
+LANGUAGES = (
+    ('ru', 'Russian'),
+    ('en', 'English'),
+)
+
+USE_I18N = True  # активация системы перевода django
+
+# месторасположение файлов перевода
+LOCALE_PATHS = (
+    'locale',
+    # os.path.join(PROJECT_DIR, 'locale'),
+)
