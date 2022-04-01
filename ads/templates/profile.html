@@ -7,5 +7,6 @@
 {% block content %}
     <h2>Hi {{ request.user.first_name }}:</h2>
     <p>Birthday: {{ request.user.profile.birth }}</p>
+    <a href="{% url "ads:edit_profile" %}">Edit profile</a>
     <p>avatar: <img src="{{ request.user.profile.photo.url }}" alt="alter text"></p>
 {% endblock %}

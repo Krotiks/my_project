@@ -42,4 +42,5 @@ urlpatterns = [
     ),
     path('profile/', views.view_profile, name='profile'),
     path('register/', views.register, name='register'),
+    path('edit_profile/', views.edit_profile, name='edit_profile'),
 ]
