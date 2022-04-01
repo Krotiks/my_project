@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from django.urls import reverse
 
+
 class Ad(models.Model):
     title = models.CharField(max_length=100)
     slug = models.SlugField(max_length=100,
@@ -39,3 +40,5 @@ class Ad(models.Model):
                              self.publish.month,
                              self.publish.day,
                              self.slug])
+
+

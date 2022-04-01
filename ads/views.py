@@ -33,6 +33,7 @@ def detailed_ad(request, yy, mm, dd, slug):
     return render(request, "ads/detailed_ad.html",
                   {"ad": ad})
 
+
 def share_ad(request, ad_id):
     ad = get_object_or_404(models.Ad, id=ad_id)
     if request.method == 'POST':
@@ -43,11 +44,11 @@ def share_ad(request, ad_id):
                 ad.get_absolute_url()
             )
             subject = 'Someone shared with you ads' + ad.title
-            body_template = ('On our site someone post an ads. ' \
-                   '\n\nlink to material: {link}' \
-                   '\n\ncomment: {comment}')
+            body_template = ('On our resource someone shared material with '
+                             'you. \n\nlink to material: {link}\n\ncomment: '
+                             '{comment}')
             body = body_template.format(link=ad_uri,
-            comment = cd['comment'])
+                                        comment=cd['comment'])
             send_mail(subject, body, 'admin@my.com', (cd['to_email'],))
     else:
         form = forms.EmailMaterialForm()
