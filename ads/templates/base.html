@@ -1,4 +1,9 @@
+{% load bootstrap4 %}
 {% load static %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,12 +12,34 @@
     <link href="{% static "styles.css" %}" rel="stylesheet">
 </head>
 <body>
+<header>
     {% if request.user.is_authenticated %}
         Hi {{ request.user.first_name }}     <a href="{% url "ads:logout" %}">Logout</a> <a href="{% url "ads:profile" %}">Profile</a>
     {% else %}
             <a href="{% url "ads:login" %}">Login</a>
     {% endif %}
-    {% block content %}
-    {% endblock %}
+    <br>
+</header>
+<div class="container-flex m-3">
+    <div class="row mb-1">
+        <div class="col-3 border border-success rounded">
+            <div class="">
+                {% block menu %}{% endblock %}
+            </div>
+        </div>
+        <div class="col-9 border border-success rounded">
+            {% block content %} {% endblock %}
+        </div>
+    </div>
+    <div class="row border border-success rounded">
+        <div class="col-9">
+           Здесь будут Ваши объявления
+        </div>
+        <div class="col-3">
+            Объявления
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
